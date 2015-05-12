@@ -6,7 +6,8 @@ from chatRoomApi.views import query
 
 class TestHelperFunctionQueryWithTwentyRowDB(TestCase):
     """
-    This will test suite will test the helper function, query(), ability to make accurate DB queries
+    This will test suite will test the helper function, query(), ability to make accurate DB queries with a 20 Row DB
+    Purpose: to make sure query can pull the LATEST 'n' DB objects when there are more than 'n' objects in the DB
     """
     def setUp(self):
         # POPULATE DB WITH 20 MESSAGES
@@ -19,22 +20,11 @@ class TestHelperFunctionQueryWithTwentyRowDB(TestCase):
         tenMessages = query(10)
         self.assertEqual(tenMessages, self.mockTwentyMessages[-10:])
 
-    def testThatJsonResponseObjectIsOfCorrectFormat(self): 
-        chatLog = {"chatLog": query(10)}
-        chatLogJSON = json.dumps(chatLog)
-        expectedChatLogJSON = json.dumps( {"chatLog": [ {"username": "testUser", "message": "11"}, 
-            {"username": "testUser", "message": "12"},
-            {"username": "testUser", "message": "13"},
-            {"username": "testUser", "message": "14"},
-            {"username": "testUser", "message": "15"},
-            {"username": "testUser", "message": "16"},
-            {"username": "testUser", "message": "17"},
-            {"username": "testUser", "message": "18"},
-            {"username": "testUser", "message": "19"},
-            {"username": "testUser", "message": "20"} ] } )
-        self.assertEqual(chatLogJSON, expectedChatLogJSON)
-
 class TestHelperFunctionQueryWithTwoRowDB(TestCase):
+    """
+    This will test suite will test the helper function, query(), ability to make accurate DB queries with a 2 Row DB
+    Purpose: to make sure query can pull the LATEST 'n' DB objects when number of objects in DB < n
+    """
     def setUp(self):
         # POPULATE DB WITH 2 MESSAGES
         self.mockTwoMessages = [{'username': 'testUser', 'message': str(num)} for num in range(1, 3)]
@@ -45,6 +35,16 @@ class TestHelperFunctionQueryWithTwoRowDB(TestCase):
     def testCanDBQueryHandleMoreQueriesThanThereAreObjectsInTheDB(self):
         tenMessages = query(10)
         self.assertEqual(tenMessages, self.mockTwoMessages[-10:])
+
+class TestHelperFunctionQueryWithEmptyDB(TestCase):
+    """
+    This will test suite will test the helper function, query(), ability to make accurate DB queries with a 0 Row (empty) DB
+    Purpose: Intercept "model.DoesNotExist" exception. Return this dictionary: {"username": "none", "message": "none"}. Client will know what to do.
+    """
+
+    def testCanDBQueryHandleMoreQueriesThanThereAreObjectsInTheDB(self):
+        tenMessages = query(10)
+        self.assertEqual(tenMessages, {"username": "none", "message": "none"})
 
 class TestChatApiView(TestCase):
 

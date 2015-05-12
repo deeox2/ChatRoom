@@ -7,7 +7,7 @@ import json
 def index(request):
     return HttpResponse("Yo what is up?")
 
-def query(r):
+def query(n):
     """ 
     query performs a DB query on chatRoomApi.models.Messages
     It returns a list with a dictionary stored in each index. Each dictionary contains the username and message field values for the latest 'r' object. 
@@ -15,20 +15,23 @@ def query(r):
     The length of the list is defined as the function's argument. This function will query the latest 'r' objects.
     For example, r = 5 will return the 5 latest chat messages saved to the DB. These dictionary items are ordered from oldest to earliest within the list. 
     """
-    lastMessagesObject = Messages.objects.latest('pk')
-    lastPk = lastMessagesObject.pk
-    usernamesAndMessages = []
-    rFirst = r -1
-    rLast = r + 1
-    for pkNum in range(lastPk -rFirst, lastPk+rLast):
-        try:
-            messageObject = Messages.objects.get(pk= pkNum)
-            usernameMessageDictionary = {'username': messageObject.username,
-             'message': messageObject.message}
-            usernamesAndMessages.append(usernameMessageDictionary)
-        except Messages.DoesNotExist:
-            continue
-    return usernamesAndMessages
+    try:
+        lastMessagesObject = Messages.objects.latest('pk')
+        lastPk = lastMessagesObject.pk
+        usernamesAndMessages = []
+        nFirst = n -1
+        nLast = n + 1
+        for pkNum in range(lastPk -nFirst, lastPk+nLast):
+            try:
+                messageObject = Messages.objects.get(pk= pkNum)
+                usernameMessageDictionary = {'username': messageObject.username,
+                 'message': messageObject.message}
+                usernamesAndMessages.append(usernameMessageDictionary)
+            except Messages.DoesNotExist:
+                continue
+        return usernamesAndMessages
+    except Messages.DoesNotExist:
+        return {"username": "none", "message": "none"}
 
 def chatApi(request):
     """
