@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Messages(models.Model):
+    username = models.TextField()
+    message = models.TextField()
+
+    def __unicode__(self):
+        return self.message
