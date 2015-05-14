@@ -8,6 +8,29 @@
 </head>
 
 <body>
-    What is going on yo???
+    <ul id="chatRoom"></ul>
+    </br>
+    <input type="text" id="chatText"/>
+    <button id="send">Send</button>
+    <script >
+        window.jQuery || document.write('<script src=  {% static "js/jquery-1.11.0.min.js" %}><\/script>');
+    </script>
+    <script src= {% static "js/chatApiClient.js" %} ></script>
+    <script>
+        constructChatRoom(10);
+        setInterval(function() { fetchChatLog(populateChatRoom); }, 1000);
+        var USERNAME = prompt("What is your name?");
+
+        $("button#send").on('click', function() { submitChatText(); } );
+        $("input#chatText").on('keydown', function(e) {
+            if (e.keyCode == 13) { submitChatText(); } 
+        } );
+        
+        function submitChatText(){
+            var message = $("input#chatText").val();
+            sendChatToServer(username=USERNAME, message = message);
+            $("input#chatText").val("");
+        }
+    </script>
 </body>
 </html>

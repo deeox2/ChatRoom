@@ -44,7 +44,7 @@ class TestHelperFunctionQueryWithEmptyDB(TestCase):
 
     def testCanDBQueryHandleMoreQueriesThanThereAreObjectsInTheDB(self):
         tenMessages = query(10)
-        self.assertEqual(tenMessages, {"username": "none", "message": "none"})
+        self.assertEqual(tenMessages, "none")
 
 class TestChatApiView(TestCase):
 

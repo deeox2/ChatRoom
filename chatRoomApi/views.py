@@ -5,7 +5,7 @@ from chatRoomApi.models import Messages
 import json
 
 def index(request):
-    return HttpResponse("Yo what is up?")
+    return render(request, 'pirateChatRoom.html')
 
 def query(n):
     """ 
@@ -31,9 +31,11 @@ def query(n):
                 continue
         return usernamesAndMessages
     except Messages.DoesNotExist:
-        return {"username": "none", "message": "none"}
+        return "none"
 
 def chatApi(request):
+    # CONSIDER PLACING "Access-Control-Allow-Origin: *" into GET RESPONSE header to allow foreign websites to access JSON response
+    # https://github.com/ottoyiu/django-cors-headers
     """
     This view handles the POST and GET requests from the Chat Client.
     GET : this view will query the DB for the 10 latest chat logs and will return a JSON object containing those logs
