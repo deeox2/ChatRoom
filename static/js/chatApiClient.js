@@ -1,10 +1,27 @@
 var URL = 'http://127.0.0.1:8000/chatroom/api';
 
-function sendChatToServer(username, message){
+function main(){
+    constructChatRoom(10);
+        setInterval(function() { fetchChatLog(populateChatRoom); }, 1000);
+        USERNAME = prompt("What is your name?");
+        $("div#username").append(USERNAME+":");
+        $("button#send").on('click', function() { submitChatText(); } );
+        $("input#chatText").on('keydown', function(e) {
+            if (e.keyCode == 13) { submitChatText(); } 
+        } );
+}
+
+function submitChatText(){
+    var message = $("input#chatText").val();
+    sendChatToServer(message);
+    $("input#chatText").val("");
+}
+
+function sendChatToServer(message){
     // packages json object {username: , message: }
     // Post request -->  {% url 'chatApi' %}
     var csrftoken = $.cookie('csrftoken');
-    var payload = {"username": username, "message": message};
+    var payload = {"username": USERNAME, "message": message};
     payloadReady = JSON.stringify(payload);
     $.ajax( {
         type:'POST',
