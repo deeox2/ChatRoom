@@ -3,15 +3,26 @@ var URL = 'http://127.0.0.1:8000/chatroom/api';
 function sendChatToServer(username, message){
     // packages json object {username: , message: }
     // Post request -->  {% url 'chatApi' %}
-    payload = {"username": username, "message": message};
+    var csrftoken = $.cookie('csrftoken');
+    var payload = {"username": username, "message": message};
     payloadReady = JSON.stringify(payload);
     $.ajax( {
         type:'POST',
         url: URL,
         data: payloadReady,
         dataType: 'json',
+        beforeSend: function(xhr, settings){
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain){
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        },
         success: function(response) { alert(response); }
     } );
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 }
 
 function parseChatLog(chatLogJSON){

@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.core import serializers
 from chatRoomApi.models import Messages
 import json
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 def index(request):
     return render(request, 'pirateChatRoom.html')
@@ -33,6 +35,7 @@ def query(n):
     except Messages.DoesNotExist:
         return "none"
 
+@ensure_csrf_cookie
 def chatApi(request):
     # CONSIDER PLACING "Access-Control-Allow-Origin: *" into GET RESPONSE header to allow foreign websites to access JSON response
     # https://github.com/ottoyiu/django-cors-headers

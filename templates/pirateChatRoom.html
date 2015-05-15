@@ -12,9 +12,8 @@
     </br>
     <input type="text" id="chatText"/>
     <button id="send">Send</button>
-    <script >
-        window.jQuery || document.write('<script src=  {% static "js/jquery-1.11.0.min.js" %}><\/script>');
-    </script>
+    <script src ={% static "js/jquery-1.11.0.min.js" %} ></script>
+    <script src={% static "js/jquery.cookie.min.js" %}></script>
     <script src= {% static "js/chatApiClient.js" %} ></script>
     <script>
         constructChatRoom(10);
