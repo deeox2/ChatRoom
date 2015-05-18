@@ -22,9 +22,9 @@ STATICFILES_DIRS = ( STATIC_PATH,)
 SECRET_KEY = 'g+gtvg^9qsaxb=$3n%t%ir9^(v)$zm@!$2ng^t5ht3ky%36&p9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
