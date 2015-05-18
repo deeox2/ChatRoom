@@ -1,4 +1,4 @@
-var chatClientModule = window.chatRoomApiNameSpace | {} ;
+var chatClientModule = {};
 var chatClientModule = function(){
     var URL = 'http://127.0.0.1:8000/chatroom/api';
     // 'https://morning-headland-7475.herokuapp.com/chatroom/api';
