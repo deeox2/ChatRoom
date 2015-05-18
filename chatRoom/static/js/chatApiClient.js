@@ -1,4 +1,4 @@
-var URL = 'http://127.0.0.1:8000/chatroom/api';
+var URL = 'https://morning-headland-7475.herokuapp.com/chatroom/api';
 
 function main(){
     constructChatRoom(10);
