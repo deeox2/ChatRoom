@@ -1,3 +1,13 @@
+"""
+This test suite is setup for the Django development environment and not for the Heroku production environment. 
+The current app's settings (as of Mary 18, 2015) are set up for the heroku production environment, as such these test suites cannot be run.
+To run these tests, revert the setttings back to dev: 
+1) Remove the configurations listed at the end of Settings. They are labeled 'Heroku Prod Settings'
+2) Reconfigure the server URL in static/js/chatApiClient.js. This variable is listed at the top
+OR
+1) Follow these instructions and set this app up to run tests on Heroku: http://stackoverflow.com/questions/13705328/how-to-run-django-tests-on-heroku
+"""
+
 from django.test import TestCase, Client
 from chatRoomApi.models import Messages
 import json
