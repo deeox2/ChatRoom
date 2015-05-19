@@ -1,3 +1,26 @@
- li.chatRoom {
- list-style-type: none;
- }
+ul#chatRoom{
+    border-style: dashed;
+    border-color: black #ee3e80 #ee3e80  black;
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+li.chatRoom{
+    list-style-type: none;
+    margin: 10px;
+    text-indent: -10px
+}
+input#chatText{
+    width: 230px;
+    height: 30px;
+    margin-left: 5px;
+    border-style: solid;
+}
+div#username{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+    button#send{
+    background-color: #B8B8B8 ;
+}
