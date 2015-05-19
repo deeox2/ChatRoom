@@ -7,7 +7,7 @@ from django.template.context_processors import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 def index(request):
-    return render(request, 'pirateChatRoom.html')
+    return render(request, 'chatRoom.html')
 
 def query(n):
     """ 
@@ -37,8 +37,6 @@ def query(n):
 
 @ensure_csrf_cookie
 def chatApi(request):
-    # CONSIDER PLACING "Access-Control-Allow-Origin: *" into GET RESPONSE header to allow foreign websites to access JSON response
-    # https://github.com/ottoyiu/django-cors-headers
     """
     This view handles the POST and GET requests from the Chat Client.
     GET : this view will query the DB for the 10 latest chat logs and will return a JSON object containing those logs
